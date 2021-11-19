@@ -1,13 +1,174 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OurHashMapTest {
+class OurHashMapTest
+{
 
     @Test
-    void getNull() {
+    void size()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+        map.put("ENGLISH", "HELLO");
+        map.put("SPANISH", "HOLA");
+        map.put("HEBREW", "SHALOM");
+
+        //when
+        int size = map.size();
+
+        //then
+        assertEquals(3, size);
+    }
+
+    @Test
+    void isEmptyTrue()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+
+        //when
+        boolean empty = map.isEmpty();
+
+        //then
+        assertTrue(empty);
+    }
+
+    @Test
+    void isEmptyFalse()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+        map.put("ENGLISH", "HELLO");
+        map.put("SPANISH", "HOLA");
+        map.put("HEBREW", "SHALOM");
+
+        //when
+        boolean empty = map.isEmpty();
+
+        //then
+        assertFalse(empty);
+    }
+
+    @Test
+    void containsKeyTrue()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+        map.put("ENGLISH", "HELLO");
+        map.put("SPANISH", "HOLA");
+        map.put("HEBREW", "SHALOM");
+
+        //when
+        boolean contains = map.containsKey("SPANISH");
+
+        //then
+        assertTrue(contains);
+    }
+
+    @Test
+    void containsKeyFalse()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+        map.put("ENGLISH", "HELLO");
+        map.put("SPANISH", "HOLA");
+        map.put("HEBREW", "SHALOM");
+
+        //when
+        boolean contains = map.containsKey("RUSSIAN");
+
+        //then
+        assertFalse(contains);
+    }
+
+    @Test
+    void containsValueTrue()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+        map.put("ENGLISH", "HELLO");
+        map.put("SPANISH", "HOLA");
+        map.put("HEBREW", "SHALOM");
+
+        //when
+        boolean contains = map.containsValue("HOLA");
+
+        //then
+        assertTrue(contains);
+    }
+
+    @Test
+    void containsValueFalse()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+        map.put("ENGLISH", "HELLO");
+        map.put("SPANISH", "HOLA");
+        map.put("HEBREW", "SHALOM");
+
+        //when
+        boolean contains = map.containsValue("HEY");
+
+        //then
+        assertFalse(contains);
+    }
+
+    @Test
+    void removeTrue()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+        map.put("ENGLISH", "HELLO");
+        map.put("SPANISH", "HOLA");
+        map.put("HEBREW", "SHALOM");
+
+        //when
+        String remove = map.remove("SPANISH");
+
+        //then
+        assertEquals("HOLA", remove);
+        assertFalse(map.containsKey("SPANISH"));
+    }
+
+    @Test
+    void removeFalse()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+        map.put("ENGLISH", "HELLO");
+        map.put("SPANISH", "HOLA");
+        map.put("HEBREW", "SHALOM");
+
+        //when
+        String remove = map.remove("RUSSIAN");
+
+        //then
+        assertNull(remove);
+    }
+
+    @Test
+    void clear()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+        map.put("ENGLISH", "HELLO");
+        map.put("SPANISH", "HOLA");
+        map.put("HEBREW", "SHALOM");
+
+        //when
+        map.clear();
+
+        //then
+        assertTrue(map.isEmpty());
+    }
+
+    @Test
+    void getNull()
+    {
         // given
-        OurHashMap<String,String> map = new OurHashMap<>();
+        OurHashMap<String, String> map = new OurHashMap<>();
 
         // when
 
@@ -16,9 +177,10 @@ class OurHashMapTest {
     }
 
     @Test
-    void put() {
+    void put()
+    {
         // given
-        OurHashMap<String,String> map = new OurHashMap<>();
+        OurHashMap<String, String> map = new OurHashMap<>();
 
         // when
         map.put("ENGLISH1", "HELLO");
@@ -44,9 +206,10 @@ class OurHashMapTest {
     }
 
     @Test
-    void putSameKeys() {
+    void putSameKeys()
+    {
         // given
-        OurHashMap<String,String> map = new OurHashMap<>();
+        OurHashMap<String, String> map = new OurHashMap<>();
 
         // when
         map.put("ENGLISH1", "HELLO");
