@@ -17,15 +17,15 @@ public class OurHashMap<K, V> implements Map<K, V>
         }
     }
 
-    List<Entry> values[] = new List[SIZE];
+    List<Entry>[] values = new List[SIZE];
 
     @Override
     public int size()
     {
         int size = 0;
-        for(List<Entry> list: values)
+        for (List<Entry> list : values)
         {
-            if(list != null)
+            if (list != null)
             {
                 size += list.size();
             }
@@ -36,9 +36,9 @@ public class OurHashMap<K, V> implements Map<K, V>
     @Override
     public boolean isEmpty()
     {
-        for(List<Entry> list: values)
+        for (List<Entry> list : values)
         {
-            if(list != null)
+            if (list != null)
             {
                 return false;
             }
@@ -49,17 +49,18 @@ public class OurHashMap<K, V> implements Map<K, V>
     @Override
     public boolean containsKey(Object key)
     {
-        for(List<Entry> list: values)
+        int hashcode = key.hashCode();
+        int index = Math.abs(hashcode) % SIZE;
+        List<Entry> list = values[index];
+        if (list == null)
         {
-            if(list != null)
+            return false;
+        }
+        for (Entry entry : list)
+        {
+            if (entry.key.equals(key))
             {
-                for (Entry entry : list)
-                {
-                    if (entry.key.equals(key))
-                    {
-                        return true;
-                    }
-                }
+                return true;
             }
         }
         return false;
@@ -68,9 +69,9 @@ public class OurHashMap<K, V> implements Map<K, V>
     @Override
     public boolean containsValue(Object value)
     {
-        for(List<Entry> list: values)
+        for (List<Entry> list : values)
         {
-            if(list != null)
+            if (list != null)
             {
                 for (Entry entry : list)
                 {
@@ -147,7 +148,7 @@ public class OurHashMap<K, V> implements Map<K, V>
             if (entry.key.equals(key))
             {
                 list.remove(entry);
-                return (V)entry.value;
+                return (V) entry.value;
             }
         }
         return null;
@@ -156,7 +157,17 @@ public class OurHashMap<K, V> implements Map<K, V>
     @Override
     public void putAll(Map m)
     {
-        
+        if (m != null)
+        {
+            for (Object key : m.keySet())
+            {
+                List list = (List) m.get(key);
+                for (Object value : list)
+                {
+                    this.put((K) key, (V) value);
+                }
+            }
+        }
     }
 
     @Override
@@ -168,10 +179,16 @@ public class OurHashMap<K, V> implements Map<K, V>
     @Override
     public Set<K> keySet()
     {
-        Set<K> keySet = null;
-        for(List<Entry> list: values)
+        Set<K> keySet = new HashSet<>();
+        for (List<Entry> list : values)
         {
-
+            if (list != null)
+            {
+                for (Entry entry : list)
+                {
+                    keySet.add((K) entry.key);
+                }
+            }
         }
         return keySet;
     }
@@ -179,7 +196,18 @@ public class OurHashMap<K, V> implements Map<K, V>
     @Override
     public Collection values()
     {
-        return null;
+        Collection valuesList = new ArrayList();
+        for (List<Entry> list : values)
+        {
+            if (list != null)
+            {
+                for (Entry entry : list)
+                {
+                    valuesList.add((K) entry.value);
+                }
+            }
+        }
+        return valuesList;
     }
 
     @Override

@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OurHashMapTest
@@ -149,6 +151,26 @@ class OurHashMapTest
     }
 
     @Test
+    void putAll()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+        map.put("ENGLISH", "HELLO");
+        HashMap<String, String> map2 = new HashMap<>();
+        map2.put("SPANISH", "HOLA");
+        map2.put("HEBREW", "SHALOM");
+
+        //when
+        map.putAll(map2);
+
+        //then
+        assertTrue(map.containsKey("SPANISH"));
+        assertTrue(map.containsKey("HEBREW"));
+        assertTrue(map.containsValue("HOLA"));
+        assertTrue(map.containsValue("SHALOM"));
+    }
+
+    @Test
     void clear()
     {
         //given
@@ -162,6 +184,48 @@ class OurHashMapTest
 
         //then
         assertTrue(map.isEmpty());
+    }
+
+    @Test
+    void keySet()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+        map.put("ENGLISH", "HELLO");
+        map.put("SPANISH", "HOLA");
+        map.put("HEBREW", "SHALOM");
+
+        Set<String> expectedSet = new HashSet<>();
+        expectedSet.add("ENGLISH");
+        expectedSet.add("SPANISH");
+        expectedSet.add("HEBREW");
+
+        //when
+        Set<String> keySet = map.keySet();
+
+        //then
+        assertEquals(expectedSet, keySet);
+    }
+
+    @Test
+    void values()
+    {
+        //given
+        OurHashMap<String, String> map = new OurHashMap<>();
+        map.put("ENGLISH", "HELLO");
+        map.put("SPANISH", "HOLA");
+        map.put("HEBREW", "SHALOM");
+
+        List<String> expectedCollection = new ArrayList<>();
+        expectedCollection.add("HELLO");
+        expectedCollection.add("HOLA");
+        expectedCollection.add("SHALOM");
+
+        //when
+        Collection<String> values = map.values();
+
+        //then
+        assertEquals(expectedCollection, values);
     }
 
     @Test
