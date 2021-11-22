@@ -195,15 +195,11 @@ public class OurHashMap<K, V> implements Map<K, V>
     public Collection values()
     {
         Collection valuesList = new ArrayList();
-        for (List<Entry> list : values)
+        Iterator<? extends K> iterator = this.keySet().iterator();
+        while (iterator.hasNext())
         {
-            if (list != null)
-            {
-                for (Entry entry : list)
-                {
-                    valuesList.add((K) entry.value);
-                }
-            }
+            K key = iterator.next();
+            valuesList.add((K)this.get(key));
         }
         return valuesList;
     }
