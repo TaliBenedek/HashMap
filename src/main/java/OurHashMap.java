@@ -155,13 +155,15 @@ public class OurHashMap<K, V> implements Map<K, V>
     }
 
     @Override
-    public void putAll(Map m)
+    public void putAll(Map<? extends K, ? extends V> m)
     {
-        if (m != null)
+        if(m != null)
         {
-            for(Map.Entry<K, V> entry: m.entrySet())
+            Iterator<? extends K> iterator = m.keySet().iterator();
+            while (iterator.hasNext())
             {
-                this.put(entry.getKey(), entry.getValue());
+                K key = iterator.next();
+                put(key, m.get(key));
             }
         }
     }
