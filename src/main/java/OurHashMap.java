@@ -159,13 +159,9 @@ public class OurHashMap<K, V> implements Map<K, V>
     {
         if (m != null)
         {
-            for (Object key : m.keySet())
+            for(Map.Entry<K, V> entry: m.entrySet())
             {
-                List list = (List) m.get(key);
-                for (Object value : list)
-                {
-                    this.put((K) key, (V) value);
-                }
+                this.put(entry.getKey(), entry.getValue());
             }
         }
     }
