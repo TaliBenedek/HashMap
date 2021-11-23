@@ -38,10 +38,15 @@ public class OurHashMap<K, V> implements Map<K, V>
     {
         for (List<Entry> list : values)
         {
-            if (list != null || !list.isEmpty())
+            if (list != null)
             {
+                if(list.isEmpty())
+                {
+                    continue;
+                }
                 return false;
             }
+
         }
         return true;
     }
@@ -146,10 +151,8 @@ public class OurHashMap<K, V> implements Map<K, V>
     {
         if(m != null)
         {
-            Iterator<? extends K> iterator = m.keySet().iterator();
-            while (iterator.hasNext())
+            for (K key : m.keySet())
             {
-                K key = iterator.next();
                 put(key, m.get(key));
             }
         }
@@ -179,14 +182,12 @@ public class OurHashMap<K, V> implements Map<K, V>
     }
 
     @Override
-    public Collection values()
+    public Collection<V> values()
     {
-        Collection valuesList = new ArrayList();
-        Iterator<? extends K> iterator = this.keySet().iterator();
-        while (iterator.hasNext())
+        Collection<V> valuesList = new ArrayList<V>();
+        for (K key : this.keySet())
         {
-            K key = iterator.next();
-            valuesList.add((K)this.get(key));
+            valuesList.add((V) this.get(key));
         }
         return valuesList;
     }
