@@ -30,7 +30,7 @@ public class OurHashMap<K, V> implements Map<K, V>
                 size += list.size();
             }
         }
-        return Math.min(size, Integer.MAX_VALUE);
+        return size;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class OurHashMap<K, V> implements Map<K, V>
     {
         for (List<Entry> list : values)
         {
-            if (list != null)
+            if (list != null || !list.isEmpty())
             {
                 return false;
             }
@@ -49,21 +49,8 @@ public class OurHashMap<K, V> implements Map<K, V>
     @Override
     public boolean containsKey(Object key)
     {
-        int hashcode = key.hashCode();
-        int index = Math.abs(hashcode) % SIZE;
-        List<Entry> list = values[index];
-        if (list == null)
-        {
-            return false;
-        }
-        for (Entry entry : list)
-        {
-            if (entry.key.equals(key))
-            {
-                return true;
-            }
-        }
-        return false;
+        V value = this.get(key);
+        return value != null;
     }
 
     @Override
