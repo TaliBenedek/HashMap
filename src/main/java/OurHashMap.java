@@ -147,14 +147,12 @@ public class OurHashMap<K, V> implements Map<K, V>
     }
 
     @Override
-    public void putAll(Map<? extends K, ? extends V> m)
+    public void putAll(Map m)
     {
-        if(m != null)
+        Set<Map.Entry<K, V>> entrySet = m.entrySet();
+        for(Map.Entry<K, V> entry: entrySet)
         {
-            for (K key : m.keySet())
-            {
-                put(key, m.get(key));
-            }
+            this.put(entry.getKey(), entry.getValue());
         }
     }
 
